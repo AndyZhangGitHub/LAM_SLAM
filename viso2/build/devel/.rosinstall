@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/Andy/catkin_limo_ws/src/viso2/build/devel/setup.sh

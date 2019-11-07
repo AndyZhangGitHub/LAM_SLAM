@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/Andy/catkin_limo_ws/src/limo/keyframe_bundle_adjustment/build/devel/setup.sh

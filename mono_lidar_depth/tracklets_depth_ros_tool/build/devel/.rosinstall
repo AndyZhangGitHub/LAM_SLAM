@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/Andy/catkin_limo_ws/src/mono_lidar_depth/tracklets_depth_ros_tool/build/devel/setup.sh
