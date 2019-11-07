@@ -6,6 +6,8 @@
   <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager_name)" output="screen" args="manager"/>
    -->
   <!--feature matching-->
+  <!-- 第一部分：图像预处理和图像匹配部分——该部分内容最终发布图像匹配的结果  -->
+  <!-- 代码目录：/home/Andy/catkin_limo_ws/src/feature_tracking -->
   <include file="$(find demo_keyframe_bundle_adjustment_meta)/launch/feature_matching.launch">
       <arg name="camera_name" value="left"/>
   </include>
@@ -15,6 +17,9 @@
   <arg name="config_depth_estimator" default="$(find demo_keyframe_bundle_adjustment_meta)/res/mono_lidar_fusion_parameters.yaml"/>
   <arg name="config_tracklets_depth" default="$(find demo_keyframe_bundle_adjustment_meta)/res/config_tracklets_depth_ros_tool.yaml"/>
   <!-- <node pkg="nodelet" type="nodelet" name="tracklets_depth_nodelet" args="load tracklets_depth_ros_tool/TrackletDepthNodelet $(arg nodelet_manager_name)" output="screen" required="true"> -->
+  
+  <!-- 第二部分：第4个节点 -->
+  <!-- 代码目录 /home/Andy/catkin_limo_ws/src/mono_lidar_depth/tracklets_depth_ros_tool -->
   <node pkg="tracklets_depth_ros_tool" type="tracklet_depth_node" name="tracklets_depth_node" output="screen" required="true">
     <param name="config_tracklet_depth" value="$(arg config_tracklets_depth)" />
     <param name="config_depth_estimator" value="$(arg config_depth_estimator)" />

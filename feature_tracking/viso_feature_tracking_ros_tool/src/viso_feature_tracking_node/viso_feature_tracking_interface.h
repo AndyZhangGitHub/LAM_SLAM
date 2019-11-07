@@ -39,6 +39,7 @@ public:
     VisoFeatureTrackingInterface(ros::NodeHandle node_handle, ros::NodeHandle private_handle);
 
 private: // attributes
+
     ///@brief ros stuff
     ros::Publisher publisher_matches_;
     ros::Subscriber subscriber_image_;

@@ -1,4 +1,10 @@
-#include "gamma_correction.h"
+/***********************************************************************
+ * 
+ *            程序运行第一步：对接收到的图像进行预处理——gamma变换
+ *  
+ * ********************************************************************/
+
+ #include "gamma_correction.h"
 
 GammaCorrector::GammaCorrector(ros::NodeHandle& nodeHandle, ros::NodeHandle& privateNodeHandle, const std::string name) {
   name_ = name;

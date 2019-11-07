@@ -6,6 +6,7 @@
   <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager_name)" output="screen" args="manager" if="$(arg start_nodelet_manager)"/>
   
   <!--gamma correction-->
+  <!-- 节点2：对图像进行预处理——gamma变换 -->
   <node pkg="nodelet" type="nodelet" name="gamma_correction_nodelet_$(arg camera_name)" args="load image_preproc_ros_tool/GammaCorrectionNodelet $(arg nodelet_manager_name)" output="log">
     <remap from="src/image" to="/sensor/camera/grayscale/$(arg camera_name)/image_rect" />
     <remap from="tgt/image" to="/sensor/camera/grayscale/$(arg camera_name)/image_rect_g" />
@@ -14,6 +15,7 @@
   </node>
 
   <!-- feature tracking node -->
+  <!-- 节点3： 对图像进行特征匹配-->
   <node pkg="nodelet" type="nodelet" name="viso_feature_tracking_nodelet_$(arg camera_name)" args="load viso_feature_tracking_ros_tool/VisoFeatureTrackingNodelet $(arg nodelet_manager_name)" output="screen">
     <param name="verbosity" value="info" />
     <param name="config" value="$(find demo_keyframe_bundle_adjustment_meta)/res/config_feature_matching.yaml" />

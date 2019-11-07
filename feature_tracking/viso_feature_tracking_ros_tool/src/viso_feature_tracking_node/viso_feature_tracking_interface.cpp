@@ -22,6 +22,12 @@ void Assert(bool condition, std::string error_message) {
     }
 }
 
+
+/****************************************
+ * 
+ *        构造函数
+ * 
+ * **************************************/
 VisoFeatureTrackingInterface::VisoFeatureTrackingInterface(ros::NodeHandle node_handle,
                                                            ros::NodeHandle private_node_handle) {
     rosinterface_handler::setLoggerLevel(private_node_handle);
@@ -38,21 +44,30 @@ VisoFeatureTrackingInterface::VisoFeatureTrackingInterface(ros::NodeHandle node_
     // instantiate tracker with config
     tracker = std::make_shared<feature_tracking::TrackerLibViso>(viso_params);
 
-    /*
-     * Publisher
-     */
+    /*****************************************************
+     * Publisher——发布器
+     *    其中：config.matches_msg_name 为 /matches/grayscale/left
+     *         config.matches_msg_queue_size 为 10
+     ****************************************************/
     publisher_matches_ =
         node_handle.advertise<matches_msg_ros::MatchesMsg>(config.matches_msg_name, config.matches_msg_queue_size);
 
-    /*
-     * subscriber setup
-     */
+    /**************************************************
+     * subscriber setup——接收器
+     *    其中：config.image_msg_name 为 /sensor/camera/grayscale/left/image_rect_g
+     *         config.image_msg_queue_size 为 10 
+     **************************************************/
     subscriber_image_ = node_handle.subscribe(
         config.image_msg_name, config.image_msg_queue_size, &VisoFeatureTrackingInterface::process, this);
 
     rosinterface_handler::showNodeInfo();
 }
 
+/****************************************
+ * 
+ *        图像处理函数
+ * 
+ * **************************************/
 void VisoFeatureTrackingInterface::process(const sensor_msgs::ImageConstPtr& input) {
     auto start = cl::high_resolution_clock::now();
     // execute tracker and write matches
@@ -70,19 +85,23 @@ void VisoFeatureTrackingInterface::process(const sensor_msgs::ImageConstPtr& inp
                    cv::Size(imageSize.width * config.scale_factor, imageSize.height * config.scale_factor));
     }
 
+    //高斯滤波
     cv::GaussianBlur(cv_bridge_ptr->image,
                      cv_bridge_ptr->image,
                      cv::Size(viso_params.blur_size, viso_params.blur_size),
                      viso_params.blur_sigma);
 
     tracker->pushBack(cv_bridge_ptr->image);
+
     tracker->getTracklets(this->tracklets_, 0);
 
     this->timestamps_.push_front(input->header.stamp);
 
     auto end = cl::high_resolution_clock::now();
+
     int64_t duration = cl::duration_cast<cl::milliseconds>(end - start).count();
     ROS_INFO_STREAM("Duration feature matching and tracking: " << duration << " ms");
+
     // publish
     publish(this->timestamps_);
 
@@ -91,6 +110,22 @@ void VisoFeatureTrackingInterface::process(const sensor_msgs::ImageConstPtr& inp
         timestamps_.pop_back();
     }
 }
+/******************************************
+ * 
+ *      发布匹配结果
+ * 
+*****************************************/
+void VisoFeatureTrackingInterface::publish(const std::deque<ros::Time>& timestamps) {
+    MatchesMsg out_msg = convert_tracklets_to_matches_msg(this->tracklets_, timestamps, config.scale_factor);
+   
+    out_msg.header.stamp = timestamps.front();
+    // out_msg->header.frame_id = config.frame_id;
+    // out_msg->child_frame_id = config.base_link_frame_id;
+
+    publisher_matches_.publish(out_msg);
+}
+
+
 
 MatchesMsg convert_tracklets_to_matches_msg(feature_tracking::TrackletVector m,
                                             const std::deque<ros::Time>& timestamps,
@@ -139,6 +174,7 @@ MatchesMsg convert_tracklets_to_matches_msg(feature_tracking::TrackletVector m,
     out.stamps.reserve(max_length);
     // timestamps.back() is the most recent so insert from last max_length elements
     out.stamps.insert(out.stamps.end(), timestamps.begin(), std::next(timestamps.begin(), max_length));
+   
     ROS_DEBUG_STREAM("timestamps length=" << timestamps.size() << " max tracklet length=" << max_length
                                           << " out.stamps length="
                                           << out.stamps.size());
@@ -157,13 +193,5 @@ MatchesMsg convert_tracklets_to_matches_msg(feature_tracking::TrackletVector m,
     return out;
 }
 
-void VisoFeatureTrackingInterface::publish(const std::deque<ros::Time>& timestamps) {
-    MatchesMsg out_msg = convert_tracklets_to_matches_msg(this->tracklets_, timestamps, config.scale_factor);
-    out_msg.header.stamp = timestamps.front();
-    // out_msg->header.frame_id = config.frame_id;
-    // out_msg->child_frame_id = config.base_link_frame_id;
-
-    publisher_matches_.publish(out_msg);
-}
 
 } // end of namespace
