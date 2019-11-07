@@ -142,7 +142,11 @@ bool DepthEstimator::InitConfig(const bool printparams) {
     _parameters = std::make_shared<DepthEstimatorParameters>();
 
     if (printparams)
-        _parameters->print();
+    {
+        //_parameters->print();
+        cout<< "深度估计器相关参数已经成功加载"<<endl;
+    }
+       
 
     _isInitializedConfig = true;
 

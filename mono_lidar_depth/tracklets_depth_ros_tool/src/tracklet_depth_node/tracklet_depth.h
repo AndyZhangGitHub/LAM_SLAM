@@ -33,6 +33,7 @@
 #include "parameters.h"
 
 namespace tracklets_depth_ros_tool {
+
 class TrackletDepth {
     using Point = pcl::PointXYZI;
     using Cloud = pcl::PointCloud<Point>;
@@ -156,15 +157,19 @@ private:
 
     ///@brief Publishes the point cloud in Camera coordinates (useful to check if the transformation between camera and
     /// lidar has been initialized correctly)
+    // 发布相机坐标系下的点云
     void PublishPointCloudCameraCs();
 
     ///@brief Publishes depth enchanced image feature points as 3D points in a point cloud
+    /// 将深度增强的图像特征点发布为点云中的3D点
     void PublishPointCloudInterpolated();
 
     ///@brief Publishes an image with the projected point cloud
+    //发布具有点云投影的图像
     void PublishImageProjectionCloud(int imgWidth, int imgHeight);
 
     ///@brief Publishes the statistics which show the count of successful calculated depths and the type of outliers
+    //发布统计信息，以显示成功计算出的深度的数量和异常值的类型
     void PublishDepthCalcStats();
 
 
@@ -191,8 +196,8 @@ public: // attributes
     std::unique_ptr<Synchronizer> _sync;
     std::unique_ptr<Synchronizer2> _sync2;
 
-    ///@ brief publisher
-
+    
+    // 发布器
     ///@ brief The pointcloud in camera coordinate frame (debug purpose for checking the camera<->lidar transform)
     ros::Publisher _publisher_cloud_camera_cs;
 
