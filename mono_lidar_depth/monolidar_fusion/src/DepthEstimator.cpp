@@ -143,8 +143,8 @@ bool DepthEstimator::InitConfig(const bool printparams) {
 
     if (printparams)
     {
-        //_parameters->print();
-        cout<< "深度估计器相关参数已经成功加载"<<endl;
+        _parameters->print();
+        //std::cout<< "深度估计器相关参数已经成功加载"<<std::endl;
     }
        
 

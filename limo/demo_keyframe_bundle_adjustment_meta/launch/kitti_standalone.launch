@@ -62,6 +62,9 @@
     <arg name="prior_vehicle_frame" value="estimate_prior/vehicle"  if="false"/>
   </include>
   
+  <!-- 建图节点 -->
+  <node pkg="mapping" type="mapping_node" name="mapping_node" output="screen" required="true"/>
+ 
   <!-- play rosbag with clock -->
   <!-- /mrtstorage/datasets/kitti/odometry/odometry_rosbags/gray/00.bag"-->
 </launch>

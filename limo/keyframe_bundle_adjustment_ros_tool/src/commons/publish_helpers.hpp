@@ -18,6 +18,7 @@
 #include <tf2_eigen/tf2_eigen.h>
 
 #include <nav_msgs/Path.h>
+#include <geometry_msgs/PoseStamped.h>
 
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
@@ -354,7 +355,8 @@ void publishPaths(ros::Publisher& path_publisher,
             active_path_msg.poses.push_back(cur_pose);
         }
     }
-
+    
+    //nav_msgs::PoseStamped new_pose = path_msg.poses.back();
     path_publisher.publish(path_msg);
     active_path_publisher.publish(active_path_msg);
 }

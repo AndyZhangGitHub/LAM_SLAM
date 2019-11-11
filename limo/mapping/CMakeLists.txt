@@ -8,8 +8,10 @@ project(mapping)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  pcl_conversions
+  pcl_ros
   roscpp
-  std_msgs
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -69,7 +71,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs
+#   sensor_msgs
 # )
 
 ################################################
@@ -104,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES mapping
-#  CATKIN_DEPENDS roscpp std_msgs
+#  CATKIN_DEPENDS pcl_conversions pcl_ros roscpp sensor_msgs
 #  DEPENDS system_lib
 )
 
@@ -196,3 +198,5 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+add_executable(mapping_node src/mapping_node/mapping_node.cpp)
+target_link_libraries(mapping_node ${catkin_LIBRARIES})

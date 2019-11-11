@@ -110,21 +110,6 @@ void VisoFeatureTrackingInterface::process(const sensor_msgs::ImageConstPtr& inp
         timestamps_.pop_back();
     }
 }
-/******************************************
- * 
- *      发布匹配结果
- * 
-*****************************************/
-void VisoFeatureTrackingInterface::publish(const std::deque<ros::Time>& timestamps) {
-    MatchesMsg out_msg = convert_tracklets_to_matches_msg(this->tracklets_, timestamps, config.scale_factor);
-   
-    out_msg.header.stamp = timestamps.front();
-    // out_msg->header.frame_id = config.frame_id;
-    // out_msg->child_frame_id = config.base_link_frame_id;
-
-    publisher_matches_.publish(out_msg);
-}
-
 
 
 MatchesMsg convert_tracklets_to_matches_msg(feature_tracking::TrackletVector m,
@@ -192,6 +177,23 @@ MatchesMsg convert_tracklets_to_matches_msg(feature_tracking::TrackletVector m,
 
     return out;
 }
+
+/******************************************
+ * 
+ *      发布匹配结果
+ * 
+*****************************************/
+void VisoFeatureTrackingInterface::publish(const std::deque<ros::Time>& timestamps) {
+    MatchesMsg out_msg = convert_tracklets_to_matches_msg(this->tracklets_, timestamps, config.scale_factor);
+   
+    out_msg.header.stamp = timestamps.front();
+    // out_msg->header.frame_id = config.frame_id;
+    // out_msg->child_frame_id = config.base_link_frame_id;
+
+    publisher_matches_.publish(out_msg);
+}
+
+
 
 
 } // end of namespace
