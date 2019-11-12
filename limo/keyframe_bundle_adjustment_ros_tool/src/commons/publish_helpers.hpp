@@ -334,6 +334,7 @@ void publishPaths(ros::Publisher& path_publisher,
     cur_ts.fromNSec(bundle_adjuster->getKeyframe().timestamp_);
     path_msg.header.stamp = cur_ts;
     // frame id of msg is same as tf_parent without tf2 convention
+    //轨迹的父坐标系为 estimate/local_cs_vehicle
     path_msg.header.frame_id = "/" + tf_parent_frame_id;
 
     nav_msgs::Path active_path_msg = path_msg;
@@ -357,6 +358,7 @@ void publishPaths(ros::Publisher& path_publisher,
     }
     
     //nav_msgs::PoseStamped new_pose = path_msg.poses.back();
+    
     path_publisher.publish(path_msg);
     active_path_publisher.publish(active_path_msg);
 }

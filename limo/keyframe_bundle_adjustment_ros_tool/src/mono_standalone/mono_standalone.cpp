@@ -159,10 +159,10 @@ void MonoStandalone::callbackSubscriber(const TrackletsMsg::ConstPtr& tracklets_
                   .count()
            << " ms" << std::endl;
         ROS_DEBUG_STREAM("number keyframes " << bundle_adjuster_->keyframes_.size());
-        ROS_INFO_STREAM("number selected keyframes " << selected_frames.size());
-        ROS_INFO_STREAM("number active keyframes " << bundle_adjuster_->active_keyframe_ids_.size());
-        ROS_INFO_STREAM("number active landmarks " << bundle_adjuster_->active_landmark_ids_.size());
-        ROS_INFO_STREAM("number selected landmarks " << bundle_adjuster_->selected_landmark_ids_.size());
+        //ROS_INFO_STREAM("number selected keyframes " << selected_frames.size());
+        //ROS_INFO_STREAM("number active keyframes " << bundle_adjuster_->active_keyframe_ids_.size());
+        //ROS_INFO_STREAM("number active landmarks " << bundle_adjuster_->active_landmark_ids_.size());
+        //ROS_INFO_STREAM("number selected landmarks " << bundle_adjuster_->selected_landmark_ids_.size());
 
         // do bundle adjustment
         if (selected_frames.size() > 0 && bundle_adjuster_->keyframes_.size() > 2 &&
@@ -194,7 +194,7 @@ void MonoStandalone::callbackSubscriber(const TrackletsMsg::ConstPtr& tracklets_
             //                }
             //            }
             last_ts_solved_ = cur_ts_ros.toSec();
-            ROS_INFO_STREAM("In MonoStandalone:" << summary);
+            //ROS_INFO_STREAM("In MonoStandalone:" << summary);
             ss << "In MonoStandalone: Duration solve="
                << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
                                                                         start_time_solve)
@@ -269,7 +269,7 @@ void MonoStandalone::callbackSubscriber(const TrackletsMsg::ConstPtr& tracklets_
     auto duration =
         std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - start_time);
     ss << "time callback=" << duration.count() << " sec\n";
-    ROS_INFO_STREAM(ss.str());
+    //ROS_INFO_STREAM(ss.str());
 }
 
 

@@ -32,7 +32,7 @@ void GammaCorrector::reconfigureRequest(const image_preproc_ros_tool::GammaCorre
 }
 
 void GammaCorrector::handleImage (const sensor_msgs::Image::ConstPtr& imgMsg) {
-  ROS_INFO_STREAM(name_ << " Gamma correction Entered callback!");
+ // ROS_INFO_STREAM(name_ << " Gamma correction Entered callback!");
     try {
         cv_bridge::CvImagePtr cvPtr = cv_bridge::toCvCopy(imgMsg);
         cv_bridge::CvImage outImage;
@@ -58,7 +58,7 @@ void GammaCorrector::handleImage (const sensor_msgs::Image::ConstPtr& imgMsg) {
     catch (cv_bridge::Exception& e) {
         ROS_ERROR_STREAM("Failed to convert ROS image into CV image: " << e.what());
     }
-  ROS_INFO_STREAM(name_ << " gamma correction leaving callback!");
+  //ROS_INFO_STREAM(name_ << " gamma correction leaving callback!");
 
 }
 

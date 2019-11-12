@@ -29,7 +29,8 @@ bool PlaneEstimationLeastSquares::EstimatePlane(const VecOfVec3d& points,
     // standard solver, SPARSE_NORMAL_CHOLESKY, also works fine but it is slower
     // for standard bundle adjustment problems.
     ceres::Solver::Options options;
-    options.minimizer_progress_to_stdout = true;
+    //options.minimizer_progress_to_stdout = true;// 打印优化信息
+    options.minimizer_progress_to_stdout = false;
     options.gradient_tolerance = 1e-16;
     options.function_tolerance = 1e-16;
 

@@ -150,11 +150,11 @@ public: /* public methods */
                 VectorOfDrawnNumbers.push_back(el);
             }
         }
-        std::cout << "Duration sample candidates="
-                  << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                           start_time_sample)
-                         .count()
-                  << " ms" << std::endl;
+        // std::cout << "Duration sample candidates="
+        //           << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+        //                                                                    start_time_sample)
+        //                  .count()
+        //           << " ms" << std::endl;
 
         auto start_time_eval = std::chrono::steady_clock::now();
 

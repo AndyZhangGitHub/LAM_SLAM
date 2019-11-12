@@ -116,9 +116,17 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
+
+#uncomment the following 4 lines to use the Eigen library
+find_package(cmake_modules REQUIRED)
+find_package(Eigen3 REQUIRED)
+include_directories(${EIGEN3_INCLUDE_DIR})
+add_definitions(${EIGEN_DEFINITIONS})
+
 include_directories(
-# include
+  include/mapping
   ${catkin_INCLUDE_DIRS}
+  
 )
 
 ## Declare a C++ library
@@ -198,5 +206,6 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-add_executable(mapping_node src/mapping_node/mapping_node.cpp)
-target_link_libraries(mapping_node ${catkin_LIBRARIES})
+add_executable(mapping_node src/mapping_node/mapping_node.cpp src/mapping_node/mapping.cpp)
+target_link_libraries(mapping_node ${catkin_LIBRARIES}
+                                     )

@@ -201,9 +201,9 @@ void dumpMap(std::string filename, const keyframe_bundle_adjustment::BundleAdjus
 
     file.close();
 
-    std::cout << "--------------------------------------\nDumped map to " << filename
-              << "--------------------------------------\n"
-              << std::endl;
+    // std::cout << "--------------------------------------\nDumped map to " << filename
+    //           << "--------------------------------------\n"
+    //           << std::endl;
 }
 
 Eigen::Isometry3d getMotionUnscaled(double focal_length,

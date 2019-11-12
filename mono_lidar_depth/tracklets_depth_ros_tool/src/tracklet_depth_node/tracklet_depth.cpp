@@ -187,7 +187,7 @@ bool TrackletDepth::InitStaticTransforms() {
     string targetFrame = _params.tf_frame_name_cameraLeft; // target frame to which the coordinates will be transformed
     string sourceFrame = _params.tf_frame_name_velodyne;   // frame in which the coordinates are currently in
 
-    ROS_INFO_STREAM("Waiting for the ROSBAG to start");
+    //ROS_INFO_STREAM("Waiting for the ROSBAG to start");
 
     while (!tf_success) {
         try {
@@ -215,7 +215,7 @@ bool TrackletDepth::InitStaticTransforms() {
 
     _camLidarTransform = transformEigen;
 
-    ROS_INFO_STREAM("Got the tf transformations: " << endl << _camLidarTransform.matrix());
+    //ROS_INFO_STREAM("Got the tf transformations: " << endl << _camLidarTransform.matrix());
 
     return true;
 }
@@ -257,7 +257,7 @@ void TrackletDepth::InitCamera(const CameraInfo::ConstPtr& cam_info) {
     _isCameraInitialized = true;
 
     // debug
-    ROS_INFO_STREAM("Got the camera info:" << std::endl
+    /*ROS_INFO_STREAM("Got the camera info:" << std::endl
                                            << "Got the camera info:"
                                            << std::endl
                                            << "img_width: "
@@ -275,6 +275,7 @@ void TrackletDepth::InitCamera(const CameraInfo::ConstPtr& cam_info) {
                                            << "principalPointY: "
                                            << principlePointY
                                            << std::endl);
+                                           */
 }
 
 std::pair<int, int> TrackletDepth::ExractNewTrackletFrames(const matches_msg_ros::MatchesMsgConstPtr& tracklets_in,
@@ -575,10 +576,10 @@ void TrackletDepth::process(const Cloud::ConstPtr& cloud_in,
     //    }
 
     ROS_DEBUG_STREAM("TrackletDepthRosTool: " + stats.str());
-    ROS_INFO_STREAM(
-        "Duration tracklet_depth_ros_tool="
-        << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time).count()
-        << " ms");
+    // ROS_INFO_STREAM(
+    //     "Duration tracklet_depth_ros_tool="
+    //     << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time).count()
+    //     << " ms");
 }
 
 
@@ -696,7 +697,7 @@ void TrackletDepth::PublishPointCloudInterpolated() {
 
 
 void TrackletDepth::PublishImageProjectionCloud(int imgWidth, int imgHeight) {
-    std::cout << "Publish image projection cloud" << std::endl;
+    //std::cout << "Publish image projection cloud" << std::endl;
 
     Eigen::Matrix2Xd points;
     _depthEstimator.getPointsCloudImageCs(points);

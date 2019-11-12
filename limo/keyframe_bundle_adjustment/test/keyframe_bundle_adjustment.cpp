@@ -559,7 +559,7 @@ void evaluate_bundle_adjustment(std::tuple<double, double> noise_lms,
     // test bundle adjuster
     std::string summary = b.solve();
 
-    std::cout << summary << std::endl;
+    //std::cout << summary << std::endl;
 
     //    std::cout << "before bundling:" << std::endl;
     //    for (const auto& p : poses_before_bundling) {
@@ -1050,7 +1050,7 @@ void evaluate_bundle_adjustment_depth(std::tuple<double, double, double> noise_l
         }
     }
 
-    std::cout << summary << std::endl;
+    //std::cout << summary << std::endl;
 
     // print stuff
     {

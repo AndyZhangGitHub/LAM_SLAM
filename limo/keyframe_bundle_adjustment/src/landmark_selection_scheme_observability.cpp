@@ -114,11 +114,11 @@ std::map<LandmarkId, LandmarkCategorizatonInterface::Category> LandmarkSparsific
                           far_ids);
         }
     }
-    std::cout << "num near with depth=" << near_ids_with_depth.size() << "\n"
-              << "num near without depth=" << near_ids.size() << "\n"
-              << "num middle with depth=" << middle_ids_with_depth.size() << "\n"
-              << "num middle without depth=" << middle_ids.size() << "\n"
-              << "num far with/without depth=" << far_ids.size() << std::endl;
+    // std::cout << "num near with depth=" << near_ids_with_depth.size() << "\n"
+    //           << "num near without depth=" << near_ids.size() << "\n"
+    //           << "num middle with depth=" << middle_ids_with_depth.size() << "\n"
+    //           << "num middle without depth=" << middle_ids.size() << "\n"
+    //           << "num far with/without depth=" << far_ids.size() << std::endl;
 
     std::vector<LandmarkId> chosen_ids_near;
     {

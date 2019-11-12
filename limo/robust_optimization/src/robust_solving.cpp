@@ -220,7 +220,7 @@ Summary solveTrimmed(const std::vector<int>& number_iterations,
         for (auto it = cur_summary.iterations.crbegin(); it != cur_summary.iterations.crend(); it++) {
             if (it->step_is_successful && it->step_is_valid) {
                 last_trust_region_radius = it->trust_region_radius;
-                std::cout << "Robust solving tieration number: " << it->iteration << std::endl;
+                //std::cout << "Robust solving tieration number: " << it->iteration << std::endl;
                 break;
             }
         }

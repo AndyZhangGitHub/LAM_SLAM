@@ -143,7 +143,7 @@ std::map<LandmarkId, LandmarkCategorizatonInterface::Category> LandmarkSparsific
 
         cloudInput->points.push_back(p);
     }
-    std::cout << "Size before voxelization=" << lms.size() << std::endl;
+    //std::cout << "Size before voxelization=" << lms.size() << std::endl;
 
     // Filter z for plausability.
     pcl::PassThrough<Point> pass;
@@ -168,11 +168,11 @@ std::map<LandmarkId, LandmarkCategorizatonInterface::Category> LandmarkSparsific
     std::set<int> labels_middle;
     filterPipe(cloud_middle, cur_pos, keyframes, params_.roi_middle_xyz[0], cloud_near, labels_middle);
 
-    std::cout << "Duration pcl stuff="
-              << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                       start_time_pcl)
-                     .count()
-              << " ms" << std::endl;
+    // std::cout << "Duration pcl stuff="
+    //           << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+    //                                                                    start_time_pcl)
+    //                  .count()
+    //           << " ms" << std::endl;
 
     // Convert from label to id.
     std::vector<LandmarkId> ids_near;
@@ -211,21 +211,21 @@ std::map<LandmarkId, LandmarkCategorizatonInterface::Category> LandmarkSparsific
         out[id] = LandmarkCategorizatonInterface::Category::FarField;
     }
 
-    std::cout
-        << "AFter voxelization: near="
-        << std::count_if(out.cbegin(),
-                         out.cend(),
-                         [](const auto& a) { return a.second == LandmarkCategorizatonInterface::Category::NearField; })
-        << " middle=" << std::count_if(out.cbegin(),
-                                       out.cend(),
-                                       [](const auto& a) {
-                                           return a.second == LandmarkCategorizatonInterface::Category::MiddleField;
-                                       })
-        << " far="
-        << std::count_if(out.cbegin(),
-                         out.cend(),
-                         [](const auto& a) { return a.second == LandmarkCategorizatonInterface::Category::FarField; })
-        << std::endl;
+    // std::cout
+    //     << "AFter voxelization: near="
+    //     << std::count_if(out.cbegin(),
+    //                      out.cend(),
+    //                      [](const auto& a) { return a.second == LandmarkCategorizatonInterface::Category::NearField; })
+    //     << " middle=" << std::count_if(out.cbegin(),
+    //                                    out.cend(),
+    //                                    [](const auto& a) {
+    //                                        return a.second == LandmarkCategorizatonInterface::Category::MiddleField;
+    //                                    })
+    //     << " far="
+    //     << std::count_if(out.cbegin(),
+    //                      out.cend(),
+    //                      [](const auto& a) { return a.second == LandmarkCategorizatonInterface::Category::FarField; })
+    //     << std::endl;
 
 
     return out;

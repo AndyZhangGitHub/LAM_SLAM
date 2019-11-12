@@ -58,7 +58,8 @@ ceres::Solver::Options getSolverOptions(double solver_time_sec) {
     // options.function_tolerance = 1.e-10;
     // options.gradient_tolerance = 1.e-10;
     options.max_solver_time_in_seconds = solver_time_sec;
-    options.minimizer_progress_to_stdout = true;
+    //options.minimizer_progress_to_stdout = true;  //打印优化信息
+    options.minimizer_progress_to_stdout = false;
     //    options.update_state_every_iteration = true; // needed for callbacks
     return options;
 }
@@ -70,7 +71,8 @@ ceres::Solver::Options getSolverOptionsMotionOnly() {
     options.max_num_iterations = 30;
     options.max_num_iterations = 4;
     //    options.max_solver_time_in_seconds = 0.1 ;
-    options.minimizer_progress_to_stdout = true;
+    //options.minimizer_progress_to_stdout = true;// 打印优化信息
+    options.minimizer_progress_to_stdout = false;
     return options;
 }
 
@@ -684,11 +686,11 @@ std::string BundleAdjusterKeyframes::solve() {
                       << " ms" << std::endl;
         }
     */
-    std::cout << "duration solver:lms_selection="
-              << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                       start_time_lm_sel)
-                     .count()
-              << " ms" << std::endl;
+    // std::cout << "duration solver:lms_selection="
+    //           << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+    //                                                                    start_time_lm_sel)
+    //                  .count()
+    //           << " ms" << std::endl;
 
     //    deactivateKeyframes(3, 3., 100.);
     // Add all residual blocks and parameters to ceres problem_.
@@ -697,8 +699,8 @@ std::string BundleAdjusterKeyframes::solve() {
     ResidualIdMap residual_block_ids_repr = ids[1];
     ResidualIdMap residual_block_ids_gp = ids[2];
 
-    std::cout << "Size residual block ids gp size=" << residual_block_ids_gp.size() << std::endl;
-    std::cout << "Cost gp res=" << getCost(residual_block_ids_gp, *problem_) << std::endl;
+    // std::cout << "Size residual block ids gp size=" << residual_block_ids_gp.size() << std::endl;
+    // std::cout << "Cost gp res=" << getCost(residual_block_ids_gp, *problem_) << std::endl;
 
     // If scale was observed, don't fix scale but add regularization.
     if (residual_block_ids_depth.size() > 10 || residual_block_ids_gp.size() > 10) {
@@ -712,7 +714,7 @@ std::string BundleAdjusterKeyframes::solve() {
     } else {
         // For fixed scale, do not use local parameterization, but use very high cost.
         addScaleRegularization(1000.);
-        std::cout << "Add scale reg." << std::endl;
+        //std::cout << "Add scale reg." << std::endl;
     }
     if (residual_block_ids_gp.size() > 0) {
         addGroundplaneRegularization(10.);
@@ -767,7 +769,7 @@ std::string BundleAdjusterKeyframes::solve() {
 }
 
 void BundleAdjusterKeyframes::addGroundplaneRegularization(double weight) {
-    std::cout << "Size keyframes=" << active_keyframe_ids_.size() << std::endl;
+    //std::cout << "Size keyframes=" << active_keyframe_ids_.size() << std::endl;
     if (active_keyframe_ids_.size() > 1) {
         std::vector<ResidualId> ids_normal;
         std::vector<ResidualId> ids_dist;
@@ -801,9 +803,9 @@ void BundleAdjusterKeyframes::addGroundplaneRegularization(double weight) {
             //        }
         }
         {
-            std::cout << "Normal reg has inital cost=" << getCost(ids_normal, *problem_) << std::endl;
-            std::cout << "Distance reg has inital cost=" << getCost(ids_dist, *problem_) << std::endl;
-            std::cout << "Motion reg has inital cost=" << getCost(ids_motion, *problem_) << std::endl;
+            // std::cout << "Normal reg has inital cost=" << getCost(ids_normal, *problem_) << std::endl;
+            // std::cout << "Distance reg has inital cost=" << getCost(ids_dist, *problem_) << std::endl;
+            // std::cout << "Motion reg has inital cost=" << getCost(ids_motion, *problem_) << std::endl;
         }
 
         std::vector<ResidualId> global_normal_ids;
@@ -922,7 +924,7 @@ void BundleAdjusterKeyframes::deactivateKeyframes(int min_num_connecting_landmar
     for (auto it = sorted_kf_ptrs.crbegin(); it != sorted_kf_ptrs.crend(); it++) {
         // Index of keyframe.
         int n = -std::distance(it, sorted_kf_ptrs.crbegin()); // reverted iterators have negative distance.
-        std::cout << "n=" << n << std::endl;
+        // std::cout << "n=" << n << std::endl;
         auto& cur_kf = *it->second;
 
         if (n > max_size_optimization_window - 1) {
@@ -935,7 +937,7 @@ void BundleAdjusterKeyframes::deactivateKeyframes(int min_num_connecting_landmar
             // Get landmarks that connect the two frames.
             const auto& connecting_lm_ids = getCommonLandmarkIds(cur_kf, *newest_kf_ptr);
 
-            std::cout << "Num connecting lms=" << connecting_lm_ids.size() << std::endl;
+            //std::cout << "Num connecting lms=" << connecting_lm_ids.size() << std::endl;
 
             // Ff there are landmarks that connect the keyframes mark as active otherwise inactive.
             cur_kf.is_active_ = static_cast<int>(connecting_lm_ids.size()) > min_num_connecting_landmarks;

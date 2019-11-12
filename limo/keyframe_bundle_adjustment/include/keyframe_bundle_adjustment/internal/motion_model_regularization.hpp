@@ -61,10 +61,10 @@ public: // public methods
         T d_y_motion_model = center_of_rotation::getDeltaY(yaw, motion_K1_K0.translation()[0]);
 
         if (std::is_same<T, double>::value) {
-            std::cout << "y motion_model=" << d_y_motion_model << std::endl;
-            std::cout << "delta_motion translation=" << motion_K1_K0.translation()[0] << " "
-                      << motion_K1_K0.translation()[1] << std::endl;
-            std::cout << "yaw=" << yaw << std::endl;
+            // std::cout << "y motion_model=" << d_y_motion_model << std::endl;
+            // std::cout << "delta_motion translation=" << motion_K1_K0.translation()[0] << " "
+            //           << motion_K1_K0.translation()[1] << std::endl;
+            // std::cout << "yaw=" << yaw << std::endl;
         }
         residual[0] = motion_K1_K0.translation()[1] - d_y_motion_model;
         residual[1] = motion_K1_K0.translation()[2] - 0.;

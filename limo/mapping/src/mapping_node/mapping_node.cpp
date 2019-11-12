@@ -5,35 +5,22 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include<iostream>
- 
-ros::Publisher pub;
- 
-void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
-{
-  // Create a container for the data.
-  sensor_msgs::PointCloud2 output;
- 
-  // Do data processing here...
-  output = *input;
-  
-  // Publish the data.
-  pub.publish (output);
-}
+#include "mapping.h"
+
  
 int main (int argc, char** argv)
 {
   // Initialize ROS
   ros::init (argc, argv, "mapping_node");
   ros::NodeHandle nh;
+  ros::NodeHandle privateNode("~");
  
-  // Create a ROS subscriber for the input point cloud
-  ros::Subscriber sub = nh.subscribe ("/sensor/velodyne/cloud_euclidean", 1, cloud_cb);
+  LAM_Mapping lidarmap;
+  if(lidarmap.setup(nh,privateNode))
+  {
+     lidarmap.spin();
+  }
+     
 
-   std::cout<<"建图节点"<<std::endl;
- 
-  // Create a ROS publisher for the output point cloud
-  pub = nh.advertise<sensor_msgs::PointCloud2> ("mapping_cloud", 1);
- 
-  // Spin
-  ros::spin ();
+  return 0;
 }

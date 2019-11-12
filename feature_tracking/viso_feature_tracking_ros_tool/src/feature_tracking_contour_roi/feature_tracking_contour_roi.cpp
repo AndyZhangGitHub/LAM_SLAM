@@ -144,7 +144,7 @@ void FeatureTrackingContourRoi::Callback(const ContourMsg::ConstPtr& contours_ms
 
     auto end = cl::high_resolution_clock::now();
     int64_t duration = cl::duration_cast<cl::milliseconds>(end - start).count();
-    ROS_INFO_STREAM("Duration feature tracking: " << duration << " ms");
+    //ROS_INFO_STREAM("Duration feature tracking: " << duration << " ms");
     // publish
     Publish(this->timestamps_);
 

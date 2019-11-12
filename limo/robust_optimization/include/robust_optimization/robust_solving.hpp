@@ -102,7 +102,8 @@ Options getStandardSolverOptions(double solver_time_sec) {
     // options.function_tolerance = 1.e-10;
     // options.gradient_tolerance = 1.e-10;
     options.max_solver_time_in_seconds = solver_time_sec;
-    options.minimizer_progress_to_stdout = true;
+    //options.minimizer_progress_to_stdout = true;//打印优化信息
+    options.minimizer_progress_to_stdout = false;
     //    options.update_state_every_iteration = true; // needed for callbacks
     return options;
 }

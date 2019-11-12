@@ -106,7 +106,7 @@ public: // public methods
             } else {
                 // This can happen if landmarks are rejected before but still saved on keyframes as measruements.
                 // For example LandmarkSelectionSchemeAddDepth may add them again.
-                std::cout << "LandmarkSelector: Attention! Id=" << id << " is not in landmarks." << std::endl;
+                //std::cout << "LandmarkSelector: Attention! Id=" << id << " is not in landmarks." << std::endl;
             }
         }
     }
@@ -197,11 +197,11 @@ public: // public methods
             sparsified_lms[el.first] = el.second;
         }
 
-        std::cout << "Duration lm_sel::apply all selection schemes="
-                  << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                           start_sel_schemes)
-                         .count()
-                  << " ms" << std::endl;
+        // std::cout << "Duration lm_sel::apply all selection schemes="
+        //           << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+        //                                                                    start_sel_schemes)
+        //                  .count()
+        //           << " ms" << std::endl;
 
         std::set<LandmarkId> selection;
         // takes elements from first vector, does something with it and stores it in second vector
@@ -224,11 +224,11 @@ public: // public methods
                             selection.cbegin(),
                             selection.cend(),
                             std::inserter(diff, diff.begin()));
-        std::cout << "Duration lm_sel::get_lm_diff="
-                  << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                           start_get_diff)
-                         .count()
-                  << " ms" << std::endl;
+        // std::cout << "Duration lm_sel::get_lm_diff="
+        //           << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+        //                                                                    start_get_diff)
+        //                  .count()
+        //           << " ms" << std::endl;
 
         // mark non selected
         auto it = std::max_element(kfs.cbegin(), kfs.cend(), [](const auto& a, const auto& b) {
@@ -240,11 +240,11 @@ public: // public methods
         }
         clean(cur_ts - convert(10.));
 
-        std::cout << "Duration lm_sel::get_non_sel_lms="
-                  << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                           start_get_non_sel)
-                         .count()
-                  << " ms" << std::endl;
+        // std::cout << "Duration lm_sel::get_non_sel_lms="
+        //           << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+        //                                                                    start_get_non_sel)
+        //                  .count()
+        //           << " ms" << std::endl;
 
         // Remember last selection.
         last_selected_lms_ = selection;

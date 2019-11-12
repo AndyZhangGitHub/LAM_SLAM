@@ -65,6 +65,9 @@
   <!-- 建图节点 -->
   <node pkg="mapping" type="mapping_node" name="mapping_node" output="screen" required="true"/>
  
+ <node pkg="rviz" type="rviz" name="rviz"
+    args="-d /home/Andy/catkin_limo_ws/LIMO.rviz"/>
+
   <!-- play rosbag with clock -->
   <!-- /mrtstorage/datasets/kitti/odometry/odometry_rosbags/gray/00.bag"-->
 </launch>

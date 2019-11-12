@@ -174,7 +174,7 @@ void MonoLidar::callbackSubscriber(const TrackletsMsg::ConstPtr& tracklets_msg,
                 double dt = keyframe_bundle_adjustment::convert((*r_it)->timestamp_) -
                             keyframe_bundle_adjustment::convert((*r_it1)->timestamp_);
                 double speed = dtrans.norm() / dt;
-                std::cout << "speed=" << speed << std::endl;
+                //std::cout << "speed=" << speed << std::endl;
 
                 // Scale translation according to speed
                 motion_vehicle_t1_t0.translation() =
@@ -202,8 +202,8 @@ void MonoLidar::callbackSubscriber(const TrackletsMsg::ConstPtr& tracklets_msg,
             auto start_time = std::chrono::steady_clock::now();
             std::string summary_motion_only = bundle_adjuster_->adjustPoseOnly(*cur_frame);
             pose_prior_keyframe_origin = cur_frame->getEigenPose();
-            std::cout << "---------------------------- motion only ------------------------" << std::endl;
-            std::cout << summary_motion_only << std::endl;
+            //std::cout << "---------------------------- motion only ------------------------" << std::endl;
+            //std::cout << summary_motion_only << std::endl;
             ss << "Duration pose only adjustment="
                << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time)
                       .count()
@@ -234,10 +234,10 @@ void MonoLidar::callbackSubscriber(const TrackletsMsg::ConstPtr& tracklets_msg,
                   .count()
            << " ms" << std::endl;
         ROS_DEBUG_STREAM("In MonoLidar: number keyframes " << bundle_adjuster_->keyframes_.size());
-        ROS_INFO_STREAM("In MonoLidar: number selected keyframes " << selected_frames.size());
-        ROS_INFO_STREAM("In MonoLidar: number active keyframes " << bundle_adjuster_->active_keyframe_ids_.size());
-        ROS_INFO_STREAM("In MonoLidar: number active landmarks " << bundle_adjuster_->active_landmark_ids_.size());
-        ROS_INFO_STREAM("In MonoLidar: number selected landmarks " << bundle_adjuster_->selected_landmark_ids_.size());
+        //ROS_INFO_STREAM("In MonoLidar: number selected keyframes " << selected_frames.size());
+       // ROS_INFO_STREAM("In MonoLidar: number active keyframes " << bundle_adjuster_->active_keyframe_ids_.size());
+       // ROS_INFO_STREAM("In MonoLidar: number active landmarks " << bundle_adjuster_->active_landmark_ids_.size());
+        //ROS_INFO_STREAM("In MonoLidar: number selected landmarks " << bundle_adjuster_->selected_landmark_ids_.size());
 
         // do bundle adjustment all interface_.time_between_keyframes
         if (bundle_adjuster_->keyframes_.size() > 2 &&
@@ -254,14 +254,14 @@ void MonoLidar::callbackSubscriber(const TrackletsMsg::ConstPtr& tracklets_msg,
             auto start_time_solve = std::chrono::steady_clock::now();
             std::string summary = bundle_adjuster_->solve();
             last_ts_solved_ = cur_ts_ros;
-            ROS_INFO_STREAM("In MonoLidar:" << summary);
+            //ROS_INFO_STREAM("In MonoLidar:" << summary);
             ss << "In MonoLidar: Duration solve="
                << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
                                                                         start_time_solve)
                       .count()
                << " ms" << std::endl;
             for (const auto& el : bundle_adjuster_->getActiveKeyframeConstPtrs()) {
-                std::cout << "plane dist=" << el.second->local_ground_plane_.distance << std::endl;
+                //std::cout << "plane dist=" << el.second->local_ground_plane_.distance << std::endl;
             }
 
             if (interface_.show_debug_image) {
@@ -370,7 +370,7 @@ void MonoLidar::callbackSubscriber(const TrackletsMsg::ConstPtr& tracklets_msg,
     auto duration =
         std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - start_time);
     ss << "time callback=" << duration.count() << " sec\n";
-    ROS_INFO_STREAM(ss.str());
+    //ROS_INFO_STREAM(ss.str());
 }
 
 /**

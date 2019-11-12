@@ -30,7 +30,7 @@ bool KeyframeSelectionSchemePose::isUsable(const Keyframe::Ptr& new_frame,
 
     // get quaternion distance
     double quat_diff = calcQuaternionDiff(new_frame->pose_, last_keyframe->pose_);
-    std::cout << "quaternion diff=" << quat_diff << std::endl;
+    //std::cout << "quaternion diff=" << quat_diff << std::endl;
 
     // use if quaternion difference is bigger than threshold
     return quat_diff > critical_quaternion_diff_;

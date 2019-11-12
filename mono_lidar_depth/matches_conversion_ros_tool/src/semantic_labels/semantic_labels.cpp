@@ -100,10 +100,10 @@ void SemanticLabels::callbackSubscriber(const MatchesMsg::ConstPtr& input1,
 
     interface_.matches_publisher.publish(out_msg);
 
-    ROS_INFO_STREAM("Duration assign semantic labels=" << std::chrono::duration_cast<std::chrono::milliseconds>(
-                                                              std::chrono::steady_clock::now() - start_semantic)
-                                                              .count()
-                                                       << " ms");
+    //ROS_INFO_STREAM("Duration assign semantic labels=" << std::chrono::duration_cast<std::chrono::milliseconds>(
+    //                                                          std::chrono::steady_clock::now() - start_semantic)
+    //                                                          .count()
+    //                                                   << " ms");
 }
 
 /**

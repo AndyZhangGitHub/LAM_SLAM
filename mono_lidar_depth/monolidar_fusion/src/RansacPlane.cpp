@@ -64,13 +64,13 @@ void RansacPlane::CalculateInliersPlane(const Cloud::ConstPtr& pointCloud, doubl
     }
     
     if (_numberRandomSamplePoints > 100) {
-        std::cout << "size before randomization " << pointCloud->points.size() << std::endl;
+        //std::cout << "size before randomization " << pointCloud->points.size() << std::endl;
         pcl::RandomSample<Point> sor;
         sor.setInputCloud(pointCloud);
         sor.setIndices(boost::make_shared<std::vector<int>>(_inliersIndex));
         sor.setSample(_numberRandomSamplePoints);
         sor.filter(_inliersIndex);
-        std::cout << "size after randomization " << _inliersIndex.size() << std::endl;
+        //std::cout << "size after randomization " << _inliersIndex.size() << std::endl;
     }
 
     //    seg.setAxis(Eigen::Vector3f(0.0, 0.0, 1.0));

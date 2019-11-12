@@ -122,10 +122,10 @@ inline void showNodeInfo() {
         msgAdvert << t << std::endl;
     }
 
-    ROS_INFO_STREAM("Started '" << getName() << "' in namespace '" << getNamespace() << "'." << std::endl
-                                << "Subscribed topics: " << std::endl
-                                << msgSubscr.str() << "Advertised topics: " << std::endl
-                                << msgAdvert.str());
+    // ROS_INFO_STREAM("Started '" << getName() << "' in namespace '" << getNamespace() << "'." << std::endl
+    //                             << "Subscribed topics: " << std::endl
+    //                             << msgSubscr.str() << "Advertised topics: " << std::endl
+    //                             << msgAdvert.str());
 }
 
 /// \brief Retrieve the topic to subscribe to (aware of global topic names)
@@ -201,7 +201,7 @@ inline bool getParam(const std::string key, T& val, const T& defaultValue) {
     if (!getParamImpl(key, val)) {
         val = defaultValue;
         ros::param::set(key, defaultValue);
-        ROS_INFO_STREAM("Parameter '" << key << "' is not defined. Setting default value.");
+        //ROS_INFO_STREAM("Parameter '" << key << "' is not defined. Setting default value.");
         return true;
     } else {
         // Param was already retrieved with last if statement.

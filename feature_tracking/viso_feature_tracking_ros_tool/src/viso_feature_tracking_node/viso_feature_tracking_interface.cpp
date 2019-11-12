@@ -100,7 +100,7 @@ void VisoFeatureTrackingInterface::process(const sensor_msgs::ImageConstPtr& inp
     auto end = cl::high_resolution_clock::now();
 
     int64_t duration = cl::duration_cast<cl::milliseconds>(end - start).count();
-    ROS_INFO_STREAM("Duration feature matching and tracking: " << duration << " ms");
+    //ROS_INFO_STREAM("Duration feature matching and tracking: " << duration << " ms");
 
     // publish
     publish(this->timestamps_);

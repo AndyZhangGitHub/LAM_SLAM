@@ -50,11 +50,11 @@ std::set<LandmarkId> LandmarkRejectionSchemeCheirality::getSelection(
         }
     }
 
-    std::cout << "Duration cheirality check="
-              << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                       start_time_cheriality)
-                     .count()
-              << " ms" << std::endl;
+    // std::cout << "Duration cheirality check="
+    //           << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+    //                                                                    start_time_cheriality)
+    //                  .count()
+    //           << " ms" << std::endl;
 
     return out;
 }
